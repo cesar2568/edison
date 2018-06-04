@@ -19,6 +19,7 @@ int main(void){
 			fflush(stdout);
 			scanf("%d", &ans);
 			if (ans == 1){
+				print("si entro");
 				envio[0] = 0x03;
 				envio[1] = 0x11;
 				mraa_i2c_write(i2c, envio, 0x02);
