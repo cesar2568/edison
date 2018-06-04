@@ -18,11 +18,9 @@ int main(void){
 			printf("1.-Temperatura\n2.-Humedad\n3.-Luminusidad\n");
 			fflush(stdout);
 			scanf("%d", &ans);
-			printf("si entro");
 			switch(ans)
 			{
 				case 1:
-				printf("si entro");
 				envio[0] = 0x03;
 				envio[1] = 0x11;
 				mraa_i2c_write(i2c, envio, 0x02);
