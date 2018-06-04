@@ -17,8 +17,8 @@ int main(void){
 			printf("Ingrese el numero de la lectura que desea realizar:\n");
 			printf("1.-Temperatura\n2.-Humedad\n3.-Luminusidad\n");
 			fflush(stdout);
-			printf("si entro");
 			scanf("%d", &ans);
+			printf("si entro");
 			if (ans == 1){
 				printf("si entro");
 				envio[0] = 0x03;
