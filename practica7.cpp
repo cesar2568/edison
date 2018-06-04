@@ -15,13 +15,13 @@ int main(void){
 		light = mraa_aio_init(0);
 		while (entrada!=0)	{
 			printf("Ingrese el numero de la lectura que desea realizar:\n");
-			printf("1.-Temperatura\n2.-Humedad\n3.-Luminusidad\n");
+			printf("3.-Temperatura\n4.-Humedad\n5.-Luminusidad\n");
 			fflush(stdout);
 			scanf("%d", &ans);
 			printf("si entro");
 			switch(ans)
 			{
-				case 1:
+				case 3:
 				printf("si entro");
 				envio[0] = 0x03;
 				envio[1] = 0x11;
@@ -38,7 +38,7 @@ int main(void){
 				entrada=0;
 				break;
 					
-				case 2:
+				case 4:
 				envio[0] = 0x03;
 				envio[1] = 0x01;
 				mraa_i2c_write(i2c, envio, 0x02);
@@ -53,7 +53,7 @@ int main(void){
 				entrada=0;
 				break;
 					
-				case 3:
+				case 5:
 				if(light == NULL){ return 1;} 
 				lum = mraa_aio_read_float(light);
 				printf("\nLa luminusidad es de: %.2f\n", lum);
