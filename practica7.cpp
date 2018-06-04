@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int hum, ans, temperatura;
+int hum, ans, temperatura, entrada=1;
 uint8_t envio[2], t;
 mraa_i2c_context i2c;
 mraa_aio_context light;
@@ -13,7 +13,7 @@ int main(void){
 		i2c = mraa_i2c_init(0);
 		mraa_i2c_address(i2c, 0x40);
 		light = mraa_aio_init(0);
-		while (1)	{
+		while (entrada!=0)	{
 			printf("Ingrese el numero de la lectura que desea realizar:\n");
 			printf("1.-Temperatura\n 2.-Humedad\n 3.-Luminusidad\n");
 			fflush(stdout);
@@ -32,6 +32,7 @@ int main(void){
 				printf("%d\n",temperatura);
 				temperatura = (temperatura/32) - 50;
 				printf("\nLa temperatura es de %d °C\n",temperatura);
+				entrada=0;
 			}
 			else if (ans == 2){
 				envio[0] = 0x03;
@@ -45,16 +46,18 @@ int main(void){
 				hum = envio[0]*16 + envio[1]/16;
 				hum = (hum/16) - 24;
 				printf("\nLa humedad es de %d %\n",hum);
+				entrada=0;
 			}
 			else if(ans == 3){
 				if(light == NULL){ return 1;} 
 				lum = mraa_aio_read_float(light);
 				printf("\nLa luminusidad es de: %.2f\n", lum);
+				entrada=0;
 			}
 			else {
 				printf("\nOpcion invalida, intentelo de nuevo\n"); 
+				entrada=0;
 			}
 		fflush(stdin);
 		}
-		return 0;
 }
