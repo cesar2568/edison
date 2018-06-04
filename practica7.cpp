@@ -15,8 +15,9 @@ int main(void){
 		light = mraa_aio_init(0);
 		while (entrada!=0)	{
 			printf("Ingrese el numero de la lectura que desea realizar:\n");
-			printf("1.-Temperatura\n 2.-Humedad\n 3.-Luminusidad\n");
+			printf("1.-Temperatura\n2.-Humedad\n3.-Luminusidad\n");
 			fflush(stdout);
+			printf("si entro");
 			scanf("%d", &ans);
 			if (ans == 1){
 				printf("si entro");
