@@ -19,7 +19,9 @@ int main(void){
 			fflush(stdout);
 			scanf("%d", &ans);
 			printf("si entro");
-			if (ans == 1){
+			switch(ans)
+			{
+				case 1:
 				printf("si entro");
 				envio[0] = 0x03;
 				envio[1] = 0x11;
@@ -34,8 +36,9 @@ int main(void){
 				temperatura = (temperatura/32) - 50;
 				printf("\nLa temperatura es de %d °C\n",temperatura);
 				entrada=0;
-			}
-			else if (ans == 2){
+				break;
+					
+				case 2:
 				envio[0] = 0x03;
 				envio[1] = 0x01;
 				mraa_i2c_write(i2c, envio, 0x02);
@@ -48,16 +51,19 @@ int main(void){
 				hum = (hum/16) - 24;
 				printf("\nLa humedad es de %d %\n",hum);
 				entrada=0;
-			}
-			else if(ans == 3){
+				break;
+					
+				case 3:
 				if(light == NULL){ return 1;} 
 				lum = mraa_aio_read_float(light);
 				printf("\nLa luminusidad es de: %.2f\n", lum);
 				entrada=0;
-			}
-			else {
+				break;
+					
+				default:
 				printf("\nOpcion invalida, intentelo de nuevo\n"); 
 				entrada=0;
+				break;
 			}
 		fflush(stdin);
 		}
