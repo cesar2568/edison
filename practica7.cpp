@@ -30,7 +30,7 @@ int main(void){
 				temperatura = envio[0]*64 + envio[1]/4;
 				printf("%d\n",temperatura);
 				temperatura = (temperatura/32) - 50;
-				printf("\nLa temperatura es de %d grados C\n",temperatura);
+				printf("\nLa temperatura es de %d °C\n",temperatura);
 			}
 			else if (ans == 2){
 				envio[0] = 0x03;
