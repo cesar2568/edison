@@ -9,19 +9,166 @@ uint8_t ins[2];
 mraa_i2c_context i2c;
 mraa_gpio_context arriba;
 mraa_gpio_context abajo;
-mraa_gpio_context aceptar;
-mraa_gpio_context led;
-int arriban=0;
-int abajon=0;
-int aceptarn=0;
-int ledn=0;
-int horaalarma=0;
-int minalarma=0;
-bool ampmalarma=0;
-bool listo=0;
-bool sonido=0;
+mraa_gpio_context aceptar; //enter
+mraa_gpio_context led; //ledpin
+int arriban=0; //arribaint
+int abajon=0; //abajoint
+int aceptarn=0; //enterInt
+int ledn=0; //ledInt
+int horaalarma=0; //alarmhour
+int minalarma=0; //alarmMinute
+bool ampmalarma=0; //alarmAmpm
+bool listo=0; //ready
+bool sonido=0; //sonando
 
-void LCD_hora()
+void menu()
+{
+  do
+  {
+    LCD_alarma();
+    arriban=mraa_gpio_read(arriba);
+    if(arriban==1)
+    {
+      while(arriban==1)
+      {
+        arriban=mraa_gpio_read(arriba);
+      }
+      horaalarma=horaalarma+1;
+      if(horaalarma>12)
+      {
+        horaalarma=0;
+      }
+    }
+    abajon=mraa_gpio_read(abajo);
+    if(abajon==1)
+    {
+      while(abajon==1)
+      {
+        abajon=mraa_gpio_read(abajo);
+      }
+      horaalarma=horaalarma-1;
+      if(horaalarma<0)
+      {
+        horaalarma=12;
+      }
+    }
+    aceptarn=mraa_gpio_read(aceptar);
+  }while(aceptarn!=1);
+  while(aceptarn==1)
+  {
+    aceptarn=mraa_gpio_read(aceptar);
+  }
+  do
+  {
+    LCD_alarma();
+    arriban=mraa_gpio_read(arriba);
+    if(arriban==1)
+    {
+      while(arriban==1)
+      {
+        arriban=mraa_gpio_read(arriba);
+      }
+      minalarma=minalarma+1;
+      if(minalarma>59)
+      {
+        minalarma=0;
+      }
+    }
+    abajon=mraa_gpio_read(abajo);
+    if(abajon==1)
+    {
+      while(abajon==1)
+      {
+        abajon=mraa_gpio_read(abajo);
+      }
+      minalarma=minalarma-1;
+      if(minalarma<0)
+      {
+        minalarma=59;
+      }
+    }
+    aceptarn=mraa_gpio_read(aceptar);
+  }while(aceptarn!=1);
+  while(aceptarn==1)
+  {
+    aceptarn=mraa_gpio_read(aceptar);
+  }
+  do
+  {
+    LCD_alarma();
+    arriban=mraa_gpio_read(arriba);
+    if(arriban==1)
+    {
+      while(arriban==1)
+      {
+        arriban=mraa_gpio_read(arriba);
+      }
+      ampmalarma= !ampmalarma;
+    }
+    abajon=mraa_gpio_read(abajo); //posible fallo
+    if(abajon==1)
+    {
+      while(abajon==1)
+      {
+        abajon=mraa_gpio_read(abajo);
+      }
+      ampmalarma=!ampmalarma;
+    }
+    aceptarn=mraa_gpio_read(aceptar);    
+  }while(aceptarn);//aqui finaliza do
+  while(aceptarn==1)
+  {
+    aceptarn=mraa_gpio_read(aceptar);
+  }
+}//finaliza menu
+
+void LCD_alarma() //mandaralarma
+{
+  mraa_i2c_address(i2c, 0x3E);
+  ins[0]=0x80;
+  ins[1]=0x80;
+  mraa_i2c_write(i2c,ins,2);
+  int i=0;
+  int h1int=horaalarma/10;
+  char h1=h1int+'0';
+  int h2int=horaalarma-h1int*10;
+  char h2=h2int+'0';
+  int m1int = minalarma/10;
+  char m1= m1int+'0';
+  int m2int= minalarma-m1int*10;
+  char m2= m2int+'0';
+  char day;
+  if(ampmalarma)
+  {
+    day='p';
+  }
+  else
+  {
+    day='a';
+  }
+  char texto1[7]={'A','L','A','R','M','A',':'};
+  char texto2[7]={h1,h2,':',m1,m2,day,'m'};
+  while(i<7)
+  {
+    ins[0]=0x40;
+    ins[1]=texto1[i];
+    mraa_i2c_write(i2c,ins,2);
+    i++;
+  }
+  ins[0]=0x80;
+  ins[1]=0xC0;
+  mraa_i2c_write(i2c,ins,2);
+  i=0;
+  while(i<7)
+  {
+    ins[0]=0x40;
+    ins[1]=texto2[i];
+    mraa_i2c_write(i2c,ins,2);
+    i++;
+  }
+}//finaliza LCD_alarma
+
+void LCD_hora() //mandarHora
 {
   mraa_i2c_address(i2c,0x3E);
   ins[0]=0x80;
@@ -71,9 +218,9 @@ void LCD_hora()
     mraa_i2c_write(i2c,ins,2);
     i++;
   }
-}
+}//finaliza LCD_alarma
 
-void Clock()
+void Clock() //obternetTiempo
 {
   time_t ahorita;
   ahorita= time(NULL);
@@ -167,9 +314,9 @@ void Clock()
     printf("ano: %d, Mes: %d, Dia: %d, Hora: %d, minuto: %d, segundo: %d",ano,mes,dia,hora,minuto,segundo);
     ampm=0;
   }
-}
+}//finaliza clock
 
-void LCD_Start()
+void LCD_Start() //initLCD
 {
   int i=0;
   usleep(3);
@@ -214,4 +361,4 @@ void LCD_Start()
   ins[0]=0x06;
   ins[1]=255;
   mraa_i2c_write(i2c,ins,2);
-}
+}//finaliza LCD_Start
