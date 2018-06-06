@@ -4,7 +4,7 @@
 #include <mraa.h>
 
 int ano, mes, dia, hora, minuto, segundo;
-bool ampm=0;
+bool ampm=1;
 uint8_t ins[2]; 
 mraa_i2c_context i2c;
 mraa_gpio_context arriba;
