@@ -24,7 +24,7 @@ bool sonido=0; //sonando
 int main()
 {
   int q=0;
-  LCD_Start();
+  LCD_Start()
   aceptar=mraa_gpio_init(9);
   abajo=mraa_gpio_init(10);
   arriba=mraa_gpio_init(11);
@@ -36,8 +36,8 @@ int main()
   mraa_gpio_dir(led, MRAA_GPIO_OUT);
   while(1)
   {
-    Clock();
-    LCD_hora();
+    Clock()
+    LCD_hora()
     aceptarn=mraa_gpio_read(aceptar);
     if(!sonido)
     {
@@ -49,7 +49,7 @@ int main()
           printf("%d\n",q);
           q=q+1;
         }
-        menu();
+        menu()
       }
     }
     if(hora==horaalarma)
