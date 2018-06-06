@@ -9,7 +9,7 @@
 #define SW_PIN 5
 
 //using namespace std;
-int contador = 0, c = 0, reset, on, event, con;
+int contador = 0, c = 0, reset, on, con;
 bool ton;
 uint8_t ins[2]; 
 std::string constring;
