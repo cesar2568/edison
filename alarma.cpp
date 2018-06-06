@@ -363,7 +363,7 @@ void LCD_Start() //initLCD
   mraa_i2c_write(i2c,ins,2);
 }//finaliza LCD_Start
 
-void main()
+int main()
 {
   int q=0;
   LCD_Start();
