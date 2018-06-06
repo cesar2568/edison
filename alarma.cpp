@@ -4,7 +4,7 @@
 #include <mraa.h>
 
 int ano, mes, dia, hora, minuto, segundo;
-bool ampm=1;
+bool ampm=0;
 uint8_t ins[2]; 
 mraa_i2c_context i2c;
 mraa_gpio_context arriba;
@@ -17,7 +17,7 @@ int aceptarn=0; //enterInt
 int ledn=0; //ledInt
 int horaalarma=0; //alarmhour
 int minalarma=0; //alarmMinute
-bool ampmalarma=0; //alarmAmpm
+bool ampmalarma=1; //alarmAmpm
 bool listo=0; //ready
 bool sonido=0; //sonando
 
