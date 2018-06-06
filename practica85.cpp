@@ -49,20 +49,20 @@ int main(void)
 		if((on = getch()) == 's') 
 		{
 			ton = true;
-			printw("Encendido\n");
+			printw("Turned ON\n");
 			refresh();
 			LCD_clear();
 			LCD_home();
-			LCD_write(   "Encendido");
+			LCD_write("ON");
 		}
 		if((reset = getch()) == 'r') {
 			ton = false;
 			contador = 0;
 			LCD_clear();
-			printw("Reinicio\n");
+			printw("Restart\n");
 			refresh();
 			LCD_home();
-			LCD_write("Reinicio");
+			LCD_write("Restart");
 			mraa_gpio_write(ledPin, 0);
 			}
 		while(ton == 1)
@@ -71,29 +71,29 @@ int main(void)
 			ton = false;
 			contador = 0;
 			LCD_clear();
-			printw("Reinicio\n");
+			printw("Restart\n");
 			refresh();
 			LCD_home();
-			LCD_write("Reinicio");
+			LCD_write("Restart");
 			mraa_gpio_write(ledPin,0);
 			}
 			if(mraa_gpio_read(PushB))
 			{
 				while(mraa_gpio_read(PushB));
 				contador++;
-				printw("Contador %d\n", contador);
+				printw("C= %d\n", contador);
 				refresh();
 				ins[0] = 0x80;
 				ins[1] = 0xC0;
 				mraa_i2c_write(i2c, ins, 2);
-				LCD_write("Contador ");
+				LCD_write("C= ");
 				con = contador + 48;
 				constring = con;
 				LCD_write(constring);
 			}
 			else if(contador == 10)
 			{
-				printw("Contador al maximo\n");
+				printw("Max number\n");
 				refresh();
 				mraa_gpio_write(ledPin, 1);
 				ton = 0;
