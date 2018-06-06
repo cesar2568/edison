@@ -32,23 +32,23 @@ int main(void){
 		if((reset = getch()) == 'r'){
 			on = 0;
 			c = 0;
-			printw("Reset del timer\n");
+			printw("Reset timer\n");
 			mraa_gpio_write(ledPin, 0);
 		}
 		while(on == 1){
 			if((stop = getch() ) == 's') {
-				printw("Conteo detenido\n");
+				printw("Counter stopped\n");
 				refresh();
 				while(1){
 					if((stop = getch() ) == 's') {
-						printw("Reanuda conteo");
+						printw("counting");
 						refresh();
 						break;
 					}
 					else if ((reset =getch()) == 'r'){
 					       on = 0;
 					       c = 0;
-					       printw("Reset del timer"); 
+					       printw("Reset timer"); 
 					       refresh();
 					       mraa_gpio_write(ledPin, 0);
 					       break;
