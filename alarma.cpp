@@ -21,98 +21,6 @@ bool ampmalarma=0; //alarmAmpm
 bool listo=0; //ready
 bool sonido=0; //sonando
 
-void main()
-{
-  int q=0;
-  LCD_Start();
-  aceptar=mraa_gpio_init(9);
-  abajo=mraa_gpio_init(10);
-  arriba=mraa_gpio_init(11);
-  led=mraa_gpio_init(13);
-  mraa_init();
-  mraa_gpio_dir(arriba, MRAA_GPIO_IN);
-  mraa_gpio_dir(abajo, MRAA_GPIO_IN);
-  mraa_gpio_dir(aceptar, MRAA_GPIO_IN);
-  mraa_gpio_dir(led, MRAA_GPIO_OUT);
-  while(1)
-  {
-    Clock();
-    LCD_hora();
-    aceptarn=mraa_gpio_read(aceptar);
-    if(!sonido)
-    {
-      if(aceptarn==1)
-      {
-        while(aceptarn==1)
-        {
-          aceptarn= mraa_gpio_read(aceptar);
-          printf("%d\n",q);
-          q=q+1;
-        }
-        menu();
-      }
-    }
-    if(hora==horaalarma)
-    {
-      printf("hora: bien\n");
-    }
-    else
-    {
-      printf("Hora: mal\n");
-    }
-    if(minuto==minalarma)
-    {
-      printf("Minuto: bien\n");
-    }
-    else
-    {
-      printf("Minuto: mal\n");
-    }
-    if(ampm==ampmalarma)
-    {
-      printf("AMPM: bien\n");
-    }
-    else
-    {
-      printf("AMPM: mal\n");
-    }
-    if(listo)
-    {
-      printf("LISTO: bien\n");
-    }
-    else
-    {
-      printf("LISTO: mal\n");
-    }
-    
-    if((hora==horaalarma)&&(minuto==minalarma)&&(ampm==ampmalarma)&&(listo))
-    {
-      mraa_gpio_write(led,1);
-      aceptarn=mraa_gpio_read(aceptar);
-      sonido=1;
-      if(aceptarn==1)
-      {
-        while(aceptarn==1)
-        {
-          printf("Apagando \n");
-          aceptarn=mraa_gpio_read(aceptar);
-        }
-        mraa_gpio_write(led,0);
-        listo=0;
-        sonido=0;
-      }
-    }
-    else
-    {
-      mraa_gpio_write(led,0);
-      if(!((hora==horaalarma)&&(minuto==minalarma)&&(ampm==ampmalarma)))
-      {
-        listo=1;
-      }
-    }
-  }
-}//finaliza main
-
 void menu()
 {
   do
@@ -454,3 +362,95 @@ void LCD_Start() //initLCD
   ins[1]=255;
   mraa_i2c_write(i2c,ins,2);
 }//finaliza LCD_Start
+
+void main()
+{
+  int q=0;
+  LCD_Start();
+  aceptar=mraa_gpio_init(9);
+  abajo=mraa_gpio_init(10);
+  arriba=mraa_gpio_init(11);
+  led=mraa_gpio_init(13);
+  mraa_init();
+  mraa_gpio_dir(arriba, MRAA_GPIO_IN);
+  mraa_gpio_dir(abajo, MRAA_GPIO_IN);
+  mraa_gpio_dir(aceptar, MRAA_GPIO_IN);
+  mraa_gpio_dir(led, MRAA_GPIO_OUT);
+  while(1)
+  {
+    Clock();
+    LCD_hora();
+    aceptarn=mraa_gpio_read(aceptar);
+    if(!sonido)
+    {
+      if(aceptarn==1)
+      {
+        while(aceptarn==1)
+        {
+          aceptarn= mraa_gpio_read(aceptar);
+          printf("%d\n",q);
+          q=q+1;
+        }
+        menu();
+      }
+    }
+    if(hora==horaalarma)
+    {
+      printf("hora: bien\n");
+    }
+    else
+    {
+      printf("Hora: mal\n");
+    }
+    if(minuto==minalarma)
+    {
+      printf("Minuto: bien\n");
+    }
+    else
+    {
+      printf("Minuto: mal\n");
+    }
+    if(ampm==ampmalarma)
+    {
+      printf("AMPM: bien\n");
+    }
+    else
+    {
+      printf("AMPM: mal\n");
+    }
+    if(listo)
+    {
+      printf("LISTO: bien\n");
+    }
+    else
+    {
+      printf("LISTO: mal\n");
+    }
+    
+    if((hora==horaalarma)&&(minuto==minalarma)&&(ampm==ampmalarma)&&(listo))
+    {
+      mraa_gpio_write(led,1);
+      aceptarn=mraa_gpio_read(aceptar);
+      sonido=1;
+      if(aceptarn==1)
+      {
+        while(aceptarn==1)
+        {
+          printf("Apagando \n");
+          aceptarn=mraa_gpio_read(aceptar);
+        }
+        mraa_gpio_write(led,0);
+        listo=0;
+        sonido=0;
+      }
+    }
+    else
+    {
+      mraa_gpio_write(led,0);
+      if(!((hora==horaalarma)&&(minuto==minalarma)&&(ampm==ampmalarma)))
+      {
+        listo=1;
+      }
+    }
+  }
+}//finaliza main
