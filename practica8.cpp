@@ -13,6 +13,7 @@ mraa_gpio_context ledPin;
 
 
 int main(void){
+	mraa_gpio_context gpio;
 	mraa_init();
 	PBedison = mraa_gpio_init(PB_PIN);
 	ledPin = mraa_gpio_init(LED_PIN);
