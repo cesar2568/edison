@@ -290,7 +290,7 @@ void LCD_hora() //mandarHora
     day='a';
   }
   
-  char texto1[7]={'H','O','R','A',':','',''};
+  char texto1[7]={'H','O','R','A',':',' ',' '};
   char texto2[7]={h1,h2,':',m1,m2,day,'m'};
   while(i<7)
   {
