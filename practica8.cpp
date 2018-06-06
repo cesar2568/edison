@@ -56,7 +56,7 @@ int main(void){
 				}
 			}
 			else{
-				printw("%d segundos\n", c);
+				printw("%d seconds\n", c);
 				refresh();
 				sleep(1);
 				c += 1;
