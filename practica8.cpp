@@ -41,7 +41,7 @@ int main(void){
 				refresh();
 				while(1){
 					if((stop = getch() ) == 's') {
-						printw("counting");
+						printw("counting\n");
 						refresh();
 						break;
 					}
