@@ -40,9 +40,9 @@ int main(void)
   cbreak();
   noecho();
   nodelay(stdscr, true);
-  printw("Contador, press s to start\n Push button	plus one \n Reset: tecla r\n");
+  printw("Contador, press S to start\n Push button	to add one\n to reset press R\n");
   refresh();
-  LCD_write("Hola");
+  LCD_write("Counter");
 	
 	while(1)
 	{
@@ -65,7 +65,7 @@ int main(void)
 			LCD_write("Reinicio");
 			mraa_gpio_write(ledPin, 0);
 			}
-		while(on == 1)
+		while(ton == 1)
 		{
 			if((reset = getch()) == 'r') {
 			ton = false;
