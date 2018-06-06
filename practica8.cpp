@@ -64,7 +64,7 @@ int main(void){
 					on = 0;
 					c = 0;
 					mraa_gpio_write(ledPin, 1);
-					printw("Cuenta terminada\n");
+					printw("Finished\n");
 					refresh();
 					break;
 				}
