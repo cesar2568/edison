@@ -21,7 +21,7 @@ bool ampmalarma=0; //alarmAmpm
 bool listo=0; //ready
 bool sonido=0; //sonando
 
-int main()
+void main()
 {
   int q=0;
   LCD_Start();
