@@ -367,9 +367,9 @@ int main()
 {
   int q=0;
   LCD_Start();
-  aceptar=mraa_gpio_init(9);
-  abajo=mraa_gpio_init(10);
-  arriba=mraa_gpio_init(11);
+  aceptar=mraa_gpio_init(2);
+  abajo=mraa_gpio_init(3);
+  arriba=mraa_gpio_init(4);
   led=mraa_gpio_init(13);
   mraa_init();
   mraa_gpio_dir(arriba, MRAA_GPIO_IN);
