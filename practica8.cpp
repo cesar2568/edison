@@ -6,7 +6,7 @@
 #include <time.h> 
 #include <ncurses.h>
 
-int PBstop, PBreset, on, c=0, seg=0;
+int stop, reset, on, c=0, seg=0;
 mraa_gpio_context PBedison;
 mraa_gpio_context ledPin;
 
@@ -20,32 +20,32 @@ int main(void){
 	mraa_gpio_dir(ledPin, MRAA_GPIO_OUT);
 	mraa_gpio_write(ledPin, 0);
 
-	initscr(); // Inicia ncurses creando una pantalla 
+	initscr(); 
 	cbreak();
 	noecho();
-	nodelay(stdscr, true); //no espera al llegar a getch, para no detener el programa
-	printw("Timer, oprimir boton en Edison para comenzar.\n Tecla a = PBStop\n Tecla r = PBreset\n"); 
-	refresh(); //la pantalla creada debe ser refrescada para mostrar los cambios 
+	nodelay(stdscr, true); 
+	printw("Timer, press the Pb in Edison.\n Press S to stop \n press R to reset\n"); 
+	refresh(); 
 
 	while(1){
 		on  = mraa_gpio_read(PBedison);
-		if((PBreset = getch()) == 'r'){
+		if((reset = getch()) == 'r'){
 			on = 0;
 			c = 0;
 			printw("Reset del timer\n");
 			mraa_gpio_write(ledPin, 0);
 		}
 		while(on == 1){
-			if((PBstop = getch() ) == 'a') {
+			if((stop = getch() ) == 's') {
 				printw("Conteo detenido\n");
 				refresh();
 				while(1){
-					if((PBstop = getch() ) == 'a') {
+					if((stop = getch() ) == 's') {
 						printw("Reanuda conteo");
 						refresh();
 						break;
 					}
-					else if ((PBreset =getch()) == 'r'){
+					else if ((reset =getch()) == 'r'){
 					       on = 0;
 					       c = 0;
 					       printw("Reset del timer"); 
