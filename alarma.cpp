@@ -370,7 +370,7 @@ int main()
   aceptar=mraa_gpio_init(2);
   abajo=mraa_gpio_init(3);
   arriba=mraa_gpio_init(4);
-  led=mraa_gpio_init(13);
+  led=mraa_gpio_init(5);
   mraa_init();
   mraa_gpio_dir(arriba, MRAA_GPIO_IN);
   mraa_gpio_dir(abajo, MRAA_GPIO_IN);
